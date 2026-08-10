@@ -1,6 +1,7 @@
 import { Component, signal, computed, afterNextRender } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import Lenis from 'lenis';
 
 @Component({
   selector: 'app-root',
@@ -85,6 +86,50 @@ export class App {
 
       // 5. Liquid Canvas Reveal Animation
       this.initLiquidReveal();
+
+      // 6. Initialize Lenis smooth scroll
+      this.lenis = new Lenis({ smoothWheel: true });
+      const raf = (t: number) => {
+        if (this.lenis) {
+          this.lenis.raf(t);
+          requestAnimationFrame(raf);
+        }
+      };
+      requestAnimationFrame(raf);
+
+      // 7. Stats scroll progress calculations
+      const statValueElements = document.querySelectorAll('.stat-number-value');
+      let lastScrollTime = 0;
+      
+      const getScrollProgress = (element: Element) => {
+        const rect = element.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const startY = viewportHeight; // Top of element hits bottom of viewport
+        const endY = viewportHeight / 2 - rect.height / 2; // Center of element hits center of viewport
+        const currentY = rect.top;
+
+        if (currentY >= startY) return 0;
+        if (currentY <= endY) return 1;
+
+        return (startY - currentY) / (startY - endY);
+      };
+
+      const updateStatsCounter = () => {
+        statValueElements.forEach(item => {
+          const target = parseInt(item.getAttribute('data-target') || '0', 10);
+          const progress = getScrollProgress(item);
+          const currentValue = Math.round(progress * target);
+          item.textContent = String(currentValue);
+        });
+      };
+
+      window.addEventListener('scroll', () => {
+        const now = performance.now();
+        if (now - lastScrollTime < 30) return;
+        lastScrollTime = now;
+        updateStatsCounter();
+      });
+      this.lenis.on('scroll', updateStatsCounter);
     });
   }
 
