@@ -1,0 +1,59 @@
+<header class="header">
+  <div class="shell header-inner">
+    <!-- Left Logo -->
+    <a href="#home" class="header-logo" (click)="onLogoClick($event)">
+      <span class="header-logo-span">
+        <svg class="icon icon-fill" style="color: var(--accent); font-size: 1.25rem;" viewBox="0 0 48 48">
+          <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
+        </svg>
+        <span>Lumora</span>
+      </span>
+    </a>
+
+    <!-- Center Primary Nav -->
+    <nav class="header-nav" aria-label="Main Navigation">
+      <ul class="header-nav-list">
+        <li class="header-nav-item">
+          <button (click)="onScrollTo('home')" aria-current="page"><span>Home</span></button>
+        </li>
+        <li class="header-nav-item">
+          <button (click)="onScrollTo('works')"><span>Work</span></button>
+        </li>
+        <li class="header-nav-item">
+          <button (click)="onScrollTo('services')">
+            <span>Services</span>
+            <span class="caret">▾</span>
+          </button>
+        </li>
+        <li class="header-nav-item">
+          <button (click)="onScrollTo('about')"><span>Studio</span></button>
+        </li>
+        <li class="header-nav-item">
+          <button (click)="onScrollTo('footer')"><span>Careers</span></button>
+        </li>
+        <li class="header-nav-item">
+          <button (click)="onOpenContact()"><span>Contact</span></button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Right - Clock chip & Menu -->
+    <div class="header-right">
+      <div class="clock-chip" id="clock-chip">
+        <span class="clock-label">Local time</span>
+        <span class="clock-time">{{ timeStr() }}</span>
+        <span class="clock-sep">•</span>
+        <span class="clock-date">{{ dateStr() }}</span>
+      </div>
+
+      <button class="menu-btn" (click)="onOpenMenu()" aria-label="Open Navigation Menu">
+        <span class="menu-btn-inner">
+          <svg class="icon" style="font-size: 0.875rem;" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <span class="menu-btn-text">Menu</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>

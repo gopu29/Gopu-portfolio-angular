@@ -1,0 +1,81 @@
+<footer id="footer" class="footer">
+  <div class="shell footer-inner">
+    <!-- CTA Row -->
+    <div class="footer-cta-row">
+      <div id="footer-title-container">
+        <h2 class="footer-cta-title">
+          <span class="reveal-line-container"><span class="reveal-line-inner">Have a project in mind?</span></span>
+          <span class="reveal-line-container"><span class="reveal-line-inner">Let's get to work.</span></span>
+        </h2>
+      </div>
+
+      <button class="pill-btn light with-arrow arrow-up-right" (click)="onOpenContact($event)" aria-label="Start a project">
+        <span class="pill-btn-inner">
+          Start a project
+          <span class="pill-btn-badge">
+            <svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Links Grid -->
+    <div class="footer-cols">
+      <!-- Brand Col -->
+      <div class="footer-brand-col">
+        <div class="footer-logo">
+          <svg class="icon icon-fill" style="color: var(--accent-from); font-size: 1.25rem;" viewBox="0 0 48 48">
+            <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
+          </svg>
+          <span>Lumora</span>
+        </div>
+        <p class="footer-tagline">An independent studio crafting brands, products, and the systems that connect them.</p>
+      </div>
+
+      <!-- Company Col -->
+      <div class="footer-col">
+        <span class="footer-col-title">Company</span>
+        <ul class="footer-col-list">
+          <li><a href="#about" class="animated-link" (click)="onScrollTo('about', $event)"><span>About</span></a></li>
+          <li><a href="#footer" class="animated-link" (click)="onScrollTo('footer', $event)"><span>Careers</span></a></li>
+          <li><a href="#home" class="animated-link" (click)="onScrollTo('home', $event)"><span>Partners</span></a></li>
+          <li><a href="#" class="animated-link" (click)="onOpenContact($event)"><span>Contact</span></a></li>
+        </ul>
+      </div>
+
+      <!-- Services Col -->
+      <div class="footer-col">
+        <span class="footer-col-title">Services</span>
+        <ul class="footer-col-list">
+          <li><a href="#services" class="animated-link" (click)="onScrollTo('services', $event)"><span>Development</span></a></li>
+          <li><a href="#services" class="animated-link" (click)="onScrollTo('services', $event)"><span>Design</span></a></li>
+          <li><a href="#services" class="animated-link" (click)="onScrollTo('services', $event)"><span>Quality Assurance</span></a></li>
+          <li><a href="#services" class="animated-link" (click)="onScrollTo('services', $event)"><span>Consulting</span></a></li>
+        </ul>
+      </div>
+
+      <!-- Social Col -->
+      <div class="footer-col">
+        <span class="footer-col-title">Social</span>
+        <ul class="footer-col-list">
+          <li><a href="#" class="animated-link"><span>X / Twitter</span></a></li>
+          <li><a href="#" class="animated-link"><span>Behance</span></a></li>
+          <li><a href="#" class="animated-link"><span>Dribbble</span></a></li>
+          <li><a href="#" class="animated-link"><span>LinkedIn</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Legal Bar -->
+    <div class="footer-legal-bar">
+      <span>© 2025 Lumora Studio. All rights reserved.</span>
+      <div class="footer-legal-links">
+        <a href="#" class="animated-link footer-legal-link"><span>Privacy</span></a>
+        <a href="#" class="animated-link footer-legal-link"><span>Terms</span></a>
+      </div>
+    </div>
+
+    <!-- Watermark background -->
+    <div class="footer-watermark">LUMORA</div>
+  </div>
+</footer>
