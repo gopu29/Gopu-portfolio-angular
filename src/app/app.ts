@@ -1,4 +1,4 @@
-import { Component, signal, afterNextRender } from '@angular/core';
+import { Component, signal, computed, afterNextRender } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -15,6 +15,12 @@ export class App {
   isContactModalClosing = signal(false);
   isContactSuccess = signal(false);
   isContactSending = signal(false);
+
+  // Loader States
+  isLoaderActive = signal(true);
+  loaderTransform = signal('translateY(0)');
+  loaderProgress = signal(0);
+  loaderProgressString = computed(() => String(this.loaderProgress()).padStart(3, '0'));
 
   // Clock States
   timeStr = signal('9:41am');
@@ -36,17 +42,48 @@ export class App {
 
   constructor() {
     afterNextRender(() => {
-      // Initialize clock updates
+      // 1. Page Loader Count & Slide Up Animation
+      this.stopScroll();
+      const FILL_MS = 1300;
+      const startTime = performance.now();
+      
+      const animateLoader = (timestamp: number) => {
+        const elapsed = timestamp - startTime;
+        const t = Math.min(elapsed / FILL_MS, 1);
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; // easeInOutCubic
+        const progress = Math.round(ease * 100);
+        
+        this.loaderProgress.set(progress);
+        
+        if (t < 1) {
+          requestAnimationFrame(animateLoader);
+        } else {
+          // Slide up
+          this.loaderTransform.set('translateY(-100%)');
+          
+          setTimeout(() => {
+            this.isLoaderActive.set(false);
+            this.startScroll();
+            document.body.classList.add('is-ready');
+            
+            // Trigger IntersectionObservers
+            this.triggerScrollElements();
+          }, 700);
+        }
+      };
+      requestAnimationFrame(animateLoader);
+
+      // 2. Initialize clock updates
       this.updateClock();
       this.clockIntervalId = setInterval(() => this.updateClock(), 1000);
 
-      // Escape key listeners
+      // 3. Escape key listeners
       window.addEventListener('keydown', (e) => this.handleKeyPress(e));
 
-      // Adaptive grid scaling
+      // 4. Adaptive grid scaling
       this.initAdaptiveGrid();
 
-      // Liquid Canvas Reveal Animation
+      // 5. Liquid Canvas Reveal Animation
       this.initLiquidReveal();
     });
   }
@@ -370,5 +407,97 @@ export class App {
       isDrawing = false;
       requestAnimationFrame(tick);
     }
+  }
+
+  private triggerScrollElements(): void {
+    // 1. revealObserver
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const delay = parseInt(el.getAttribute('data-reveal-delay') || '0', 10);
+          setTimeout(() => {
+            el.classList.add('revealed');
+          }, delay);
+          revealObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('#about-globe-text, #about-footer-row, #stats-panel').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // 2. staggerObserver
+    const staggerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const parent = entry.target as HTMLElement;
+          const selector = parent.getAttribute('data-stagger-target');
+          if (!selector) return;
+          const delayBase = parseInt(parent.getAttribute('data-stagger-delay') || '0', 10);
+          const interval = parseInt(parent.getAttribute('data-stagger-interval') || '100', 10);
+          const items = parent.querySelectorAll(selector);
+          
+          items.forEach((item, index) => {
+            setTimeout(() => {
+              item.classList.add('revealed');
+            }, delayBase + (index * interval));
+          });
+          staggerObserver.unobserve(parent);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-stagger-target]').forEach(parent => {
+      staggerObserver.observe(parent);
+    });
+
+    // 3. wordRevealObserver
+    const wordRevealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const words = entry.target.querySelectorAll('.reveal-word-inner');
+          words.forEach((word, idx) => {
+            setTimeout(() => {
+              (word as HTMLElement).style.transform = 'translateY(0)';
+              (word as HTMLElement).style.opacity = '1';
+            }, idx * 35);
+          });
+          wordRevealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('#about-text').forEach(el => {
+      wordRevealObserver.observe(el);
+    });
+
+    // 4. lineRevealObserver for headers (staggered titles)
+    const lineRevealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const inners = entry.target.querySelectorAll('.reveal-line-inner');
+          const stagger = parseInt(entry.target.getAttribute('data-line-stagger') || '120', 10);
+          inners.forEach((inner, idx) => {
+            setTimeout(() => {
+              (inner as HTMLElement).style.transform = 'translateY(0)';
+              (inner as HTMLElement).style.opacity = '1';
+            }, idx * stagger);
+          });
+          lineRevealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('#portfolio-title-container, #services-title-container, #stats-title-container, #footer-title-container').forEach(el => {
+      const inners = el.querySelectorAll('.reveal-line-inner');
+      inners.forEach(inner => {
+        (inner as HTMLElement).style.transform = 'translateY(100%)';
+        (inner as HTMLElement).style.opacity = '0';
+        (inner as HTMLElement).style.transition = 'transform 0.9s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.9s cubic-bezier(0.215, 0.61, 0.355, 1)';
+      });
+      lineRevealObserver.observe(el);
+    });
   }
 }

@@ -1,3 +1,27 @@
+<!-- PageLoader (loader / reveal) -->
+@if (isLoaderActive()) {
+  <div id="loader" class="page-loader" [style.transform]="loaderTransform()">
+    <div class="loader-content">
+      <div class="loader-brand">
+        <svg class="icon icon-fill text-accent-from" viewBox="0 0 48 48">
+          <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
+        </svg>
+        <span>Lumora</span>
+      </div>
+      <p class="loader-tagline">Bold ideas, shipped with quiet precision.</p>
+    </div>
+    <div class="loader-progress-block">
+      <div class="loader-track">
+        <div id="loader-fill" class="loader-fill" [style.width.%]="loaderProgress()"></div>
+      </div>
+      <div class="loader-meta">
+        <span>Loading</span>
+        <span id="loader-counter" class="loader-counter">{{ loaderProgressString() }}</span>
+      </div>
+    </div>
+  </div>
+}
+
 <app-header 
   [timeStr]="timeStr()" 
   [dateStr]="dateStr()"
@@ -171,6 +195,112 @@
         <span>Scroll to explore</span>
         <svg class="icon" viewBox="0 0 24 24"><path d="M19 13l-7 7-7-7M12 4v16"/></svg>
       </span>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="shell about-grid">
+      <!-- Left globe block -->
+      <div class="about-left">
+        <svg class="icon about-globe-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9.25"/>
+          <path d="M12 2.75c2.6 2.3 4 5.8 4 9.25s-1.4 6.95-4 9.25c-2.6-2.3-4-5.8-4-9.25s1.4-6.95 4-9.25zM2.75 12h18.5"/>
+        </svg>
+        <div class="about-eyebrow">
+          <div class="eyebrow dark">
+            <div class="eyebrow-dot"></div>
+            <span>The Studio</span>
+          </div>
+        </div>
+        <div class="about-globe-text" id="about-globe-text">
+          <svg class="icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9.25"/>
+            <path d="M12 2.75c2.6 2.3 4 5.8 4 9.25s-1.4 6.95-4 9.25c-2.6-2.3-4-5.8-4-9.25s1.4-6.95 4-9.25zM2.75 12h18.5"/>
+          </svg>
+          <span>A distributed team building across every time zone.</span>
+        </div>
+      </div>
+
+      <!-- Right About Statement -->
+      <div class="about-right">
+        <h2 class="about-statement" id="about-text">
+          <span class="reveal-word"><span class="reveal-word-inner">We</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner">partner</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner">with</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner">ambitious</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner">teams</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner">to</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner">ship</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">digital</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">products,</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">brand</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">systems,</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">and</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">the</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">strategy</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">that</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">holds</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">them</span></span>
+          <span class="reveal-word"><span class="reveal-word-inner text-muted">together.</span></span>
+        </h2>
+
+        <div class="about-footer-row" id="about-footer-row">
+          <div class="social-block">
+            <span class="social-label">Find us online</span>
+            <div class="social-chips">
+              <a href="#" class="social-chip accent" aria-label="X (Twitter)">
+                <span class="social-chip-inner">
+                  <svg class="icon icon-fill" style="font-size: 1rem;" viewBox="0 0 24 24">
+                    <path d="M4 4l16 16M20 4 4 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </a>
+              <a href="#" class="social-chip neutral" aria-label="Behance">
+                <span class="social-chip-inner">
+                  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+                </span>
+              </a>
+              <a href="#" class="social-chip neutral" aria-label="Dribbble">
+                <span class="social-chip-inner">
+                  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <button class="pill-btn outline with-arrow arrow-right" (click)="scrollToSection('about')" aria-label="About Us">
+            <span class="pill-btn-inner">
+              About Us
+              <span class="pill-btn-badge">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CreateBand ("We Build → Better") -->
+  <section class="create-band">
+    <div class="shell">
+      <ul class="create-band-list" id="create-band-list" data-stagger-target=".create-band-item" data-stagger-interval="120" data-stagger-delay="0">
+        <li class="create-band-item">
+          <div class="create-tile variant-light">We</div>
+        </li>
+        <li class="create-band-item">
+          <div class="create-tile variant-accent">Build</div>
+        </li>
+        <li class="create-band-item">
+          <div class="create-tile variant-dark">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </li>
+        <li class="create-band-item">
+          <div class="create-tile variant-ghost">Better</div>
+        </li>
+      </ul>
     </div>
   </section>
 </main>
