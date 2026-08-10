@@ -25,6 +25,11 @@ export class App {
   formEmail = signal('');
   formProject = signal('');
 
+  // Carousel States
+  previousCarouselIndex = signal<number | null>(null);
+  carouselDirection = signal<'next' | 'prev'>('next');
+  currentCarouselIndex = signal<number>(0);
+
   // Lenis smooth scroll instance
   protected lenis: any = null;
   private clockIntervalId: any = null;
@@ -37,6 +42,12 @@ export class App {
 
       // Escape key listeners
       window.addEventListener('keydown', (e) => this.handleKeyPress(e));
+
+      // Adaptive grid scaling
+      this.initAdaptiveGrid();
+
+      // Liquid Canvas Reveal Animation
+      this.initLiquidReveal();
     });
   }
 
@@ -128,6 +139,27 @@ export class App {
     }
   }
 
+  // Carousel Actions
+  advanceCarousel(): void {
+    this.showCarouselSlide((this.currentCarouselIndex() + 1) % 3, 'next');
+  }
+
+  nextCarousel(event: Event): void {
+    event.stopPropagation();
+    this.showCarouselSlide((this.currentCarouselIndex() + 1) % 3, 'next');
+  }
+
+  prevCarousel(event: Event): void {
+    event.stopPropagation();
+    this.showCarouselSlide((this.currentCarouselIndex() - 1 + 3) % 3, 'prev');
+  }
+
+  private showCarouselSlide(index: number, direction: 'next' | 'prev'): void {
+    this.previousCarouselIndex.set(this.currentCarouselIndex());
+    this.carouselDirection.set(direction);
+    this.currentCarouselIndex.set(index);
+  }
+
   // Form Submission
   handleFormSubmit(e: Event): void {
     e.preventDefault();
@@ -145,5 +177,198 @@ export class App {
     this.formProject.set('');
     this.isContactSuccess.set(false);
     this.isContactSending.set(false);
+  }
+
+  // Initialization Helpers
+  private initAdaptiveGrid(): void {
+    const applyAdaptiveGrid = () => {
+      const FONT_BASE = 16, baseWidth = 1920, coef = 0.6666;
+      const w = window.innerWidth;
+      const widthReduction = ((baseWidth - w) / baseWidth) * 100;
+      const size = FONT_BASE - (FONT_BASE * (widthReduction * coef)) / 100;
+      if (size > FONT_BASE) document.documentElement.style.fontSize = size + 'px';
+      else document.documentElement.style.removeProperty('font-size');
+    };
+    applyAdaptiveGrid();
+    window.addEventListener('resize', applyAdaptiveGrid);
+  }
+
+  private initLiquidReveal(): void {
+    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
+    const container = document.getElementById('hero-liquid-container');
+    if (!canvas || !container) return;
+
+    const afterImg = new Image();
+    afterImg.src = "before2.jpg"; // Revealed image
+    
+    let width = 0, height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let ctx: CanvasRenderingContext2D | null = null;
+    let coverCanvas = document.createElement('canvas');
+    let coverCtx = coverCanvas.getContext('2d') as CanvasRenderingContext2D;
+    let brushCanvas = document.createElement('canvas');
+    let brushCtx = brushCanvas.getContext('2d') as CanvasRenderingContext2D;
+
+    const brushRadius = 143;
+    const decay = 0.016;
+    let points: Array<{x: number, y: number}> = [];
+    let lastPoint: {x: number, y: number} | null = null;
+    let idle = 0;
+    let imagesLoaded = false;
+    let isDrawing = false;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion) {
+      ctx = canvas.getContext('2d');
+      
+      afterImg.onload = () => {
+        imagesLoaded = true;
+        resizeCanvas();
+        requestAnimationFrame(tick);
+      };
+
+      const resizeObserver = new ResizeObserver(() => {
+        resizeCanvas();
+      });
+      resizeObserver.observe(container);
+
+      window.addEventListener('pointermove', (e) => {
+        if (!imagesLoaded || !ctx) return;
+        const rect = container.getBoundingClientRect();
+        const x = (e.clientX - rect.left) * dpr;
+        const y = (e.clientY - rect.top) * dpr;
+        const radius = brushRadius * dpr;
+
+        if (x < -radius || y < -radius || x > (rect.width * dpr) + radius || y > (rect.height * dpr) + radius) {
+          lastPoint = null;
+          return;
+        }
+
+        isDrawing = true;
+        const current = { x, y };
+
+        if (lastPoint) {
+          const dist = Math.hypot(current.x - lastPoint.x, current.y - lastPoint.y);
+          const step = Math.max(radius * 0.3, 1);
+          const n = Math.min(Math.ceil(dist / step), 60);
+
+          for (let i = 1; i <= n; i++) {
+            const ratio = i / n;
+            points.push({
+              x: lastPoint.x + (current.x - lastPoint.x) * ratio,
+              y: lastPoint.y + (current.y - lastPoint.y) * ratio
+            });
+          }
+        } else {
+          points.push(current);
+        }
+
+        lastPoint = current;
+      });
+
+      window.addEventListener('pointerleave', () => {
+        lastPoint = null;
+      });
+    }
+
+    function resizeCanvas() {
+      if (!container || !canvas || !imagesLoaded) return;
+      const rect = container.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+
+      coverCanvas.width = width * dpr;
+      coverCanvas.height = height * dpr;
+      drawCoverImage(coverCtx, afterImg, coverCanvas.width, coverCanvas.height);
+
+      const radius = brushRadius * dpr;
+      const diameter = Math.ceil(radius * 2);
+      brushCanvas.width = diameter;
+      brushCanvas.height = diameter;
+    }
+
+    function drawCoverImage(context: CanvasRenderingContext2D, img: HTMLImageElement, w: number, h: number) {
+      context.clearRect(0, 0, w, h);
+      const imgRatio = img.width / img.height;
+      const canvasRatio = w / h;
+      let drawWidth = w;
+      let drawHeight = h;
+      let offsetX = 0;
+      let offsetY = 0;
+      
+      if (imgRatio > canvasRatio) {
+        drawWidth = h * imgRatio;
+        offsetX = (w - drawWidth) / 2;
+      } else {
+        drawHeight = w / imgRatio;
+        offsetY = (h - drawHeight) / 2;
+      }
+      context.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    }
+
+    function stamp(x: number, y: number) {
+      const radius = brushRadius * dpr;
+      const diameter = Math.ceil(radius * 2);
+      const c = radius;
+
+      brushCtx.clearRect(0, 0, diameter, diameter);
+      brushCtx.globalCompositeOperation = 'source-over';
+      
+      const gradient = brushCtx.createRadialGradient(c, c, 0, c, c, radius);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0.55, 'rgba(255, 255, 255, 0.82)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      
+      brushCtx.fillStyle = gradient;
+      brushCtx.beginPath();
+      brushCtx.arc(c, c, radius, 0, Math.PI * 2);
+      brushCtx.fill();
+
+      brushCtx.globalCompositeOperation = 'source-in';
+      brushCtx.drawImage(
+        coverCanvas,
+        x - c, y - c, diameter, diameter,
+        0, 0, diameter, diameter
+      );
+
+      if (ctx) {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.drawImage(brushCanvas, x - c, y - c);
+      }
+    }
+
+    function tick() {
+      if (points.length > 0) {
+        idle = 0;
+      } else {
+        idle++;
+      }
+
+      if (ctx) {
+        if (idle <= 120) {
+          const fade = isDrawing ? decay : Math.min(decay + idle * 0.004, 0.5);
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.fillStyle = `rgba(0, 0, 0, ${fade})`;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          if (points.length > 0) {
+            points.forEach(pt => stamp(pt.x, pt.y));
+            points = [];
+          }
+        } else if (idle === 121) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      isDrawing = false;
+      requestAnimationFrame(tick);
+    }
   }
 }

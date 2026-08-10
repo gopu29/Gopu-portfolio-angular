@@ -7,10 +7,172 @@
 </app-header>
 
 <main id="main">
-  <div style="padding: 10rem 2rem; text-align: center;">
-    <h1>Lumora Portfolio in Angular</h1>
-    <p>Migration in progress...</p>
-  </div>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <!-- Full-bleed before/after liquid reveal -->
+    <div class="hero-liquid-container" id="hero-liquid-container">
+      <img class="hero-img-before" src="after2.jpg" alt="Lumora Studio Hero Base" />
+      <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+    </div>
+
+    <!-- Legibility vignette -->
+    <div class="hero-vignette"></div>
+
+    <!-- Brand watermark -->
+    <div class="hero-watermark">LUMORA</div>
+
+    <!-- Content grid -->
+    <div class="shell hero-content">
+      <!-- Left Column -->
+      <div class="hero-left">
+        <div class="hero-eyebrow-wrapper">
+          <div class="eyebrow dark">
+            <div class="eyebrow-dot"></div>
+            <span>Independent Studio</span>
+          </div>
+        </div>
+
+        <h1 class="hero-h1">
+          <span class="reveal-line-container"><span class="reveal-line-inner">Bold ideas,</span></span>
+          <span class="reveal-line-container"><span class="reveal-line-inner">shipped with</span></span>
+          <span class="reveal-line-container"><span class="reveal-line-inner" style="color: var(--accent);">quiet precision</span></span>
+        </h1>
+
+        <div class="hero-rating-wrapper">
+          <div class="stars-row">
+            <svg class="icon icon-fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z"/></svg>
+            <svg class="icon icon-fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z"/></svg>
+            <svg class="icon icon-fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z"/></svg>
+            <svg class="icon icon-fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z"/></svg>
+            <svg class="icon icon-fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z"/></svg>
+          </div>
+          <span class="rating-text">200+ brands shipped</span>
+        </div>
+
+        <div class="hero-cta-row">
+          <button class="pill-btn dark with-arrow arrow-up-right" (click)="openRequestModal()" aria-label="Let's Talk - Open Contact Form">
+            <span class="pill-btn-inner">
+              Let's Talk
+              <span class="pill-btn-badge">
+                <svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
+              </span>
+            </span>
+          </button>
+          <button class="pill-btn outline with-arrow arrow-right" (click)="scrollToSection('works')" aria-label="View Work - Portfolio Section">
+            <span class="pill-btn-inner">
+              View Work
+              <span class="pill-btn-badge">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="hero-right">
+        <!-- HeroCard (Carousel Card) -->
+        <div class="hero-card">
+          <div class="hero-card-inner" (click)="advanceCarousel()">
+            <div class="hero-card-left">
+              <svg class="icon icon-fill" viewBox="0 0 48 48">
+                <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
+              </svg>
+            </div>
+            <div class="hero-card-right">
+              <div class="carousel-text-wrapper">
+                <div class="carousel-text-slide" 
+                     [class.active]="currentCarouselIndex() === 0"
+                     [class.slide-out-next]="previousCarouselIndex() === 0 && carouselDirection() === 'next'"
+                     [class.slide-out-prev]="previousCarouselIndex() === 0 && carouselDirection() === 'prev'"
+                     data-index="0">
+                  <span class="carousel-caption">Conversion design</span>
+                  <h4 class="carousel-title">Crafted to convert.</h4>
+                </div>
+                <div class="carousel-text-slide" 
+                     [class.active]="currentCarouselIndex() === 1"
+                     [class.slide-out-next]="previousCarouselIndex() === 1 && carouselDirection() === 'next'"
+                     [class.slide-out-prev]="previousCarouselIndex() === 1 && carouselDirection() === 'prev'"
+                     data-index="1">
+                  <span class="carousel-caption">Engineering</span>
+                  <h4 class="carousel-title">Built to scale.</h4>
+                </div>
+                <div class="carousel-text-slide" 
+                     [class.active]="currentCarouselIndex() === 2"
+                     [class.slide-out-next]="previousCarouselIndex() === 2 && carouselDirection() === 'next'"
+                     [class.slide-out-prev]="previousCarouselIndex() === 2 && carouselDirection() === 'prev'"
+                     data-index="2">
+                  <span class="carousel-caption">Brand systems</span>
+                  <h4 class="carousel-title">Designed to last.</h4>
+                </div>
+              </div>
+
+              <div class="carousel-controls">
+                <div class="carousel-dots">
+                  <div class="carousel-dot" [class.active]="currentCarouselIndex() === 0"></div>
+                  <div class="carousel-dot" [class.active]="currentCarouselIndex() === 1"></div>
+                  <div class="carousel-dot" [class.active]="currentCarouselIndex() === 2"></div>
+                </div>
+                <div class="carousel-arrows" (click)="$event.stopPropagation()">
+                  <button class="carousel-arrow-btn prev" (click)="prevCarousel($event)" aria-label="Previous Slide">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </button>
+                  <button class="carousel-arrow-btn next" (click)="nextCarousel($event)" aria-label="Next Slide">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partners -->
+        <div class="hero-partners">
+          <p class="partners-label">Trusted by</p>
+          <div class="partners-grid">
+            <span class="partner-chip">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Kaido</span>
+            </span>
+            <span class="partner-chip">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Northpeak</span>
+            </span>
+            <span class="partner-chip">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Vellum</span>
+            </span>
+            <span class="partner-chip">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Orbit</span>
+            </span>
+            <span class="partner-chip">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Brightline</span>
+            </span>
+            <span class="partner-chip">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Cobalt</span>
+            </span>
+            <span class="partner-chip">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Mesa</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom status bar -->
+    <div class="shell hero-status-bar">
+      <span>Working since 2014</span>
+      <span class="status-center">Remote-first, worldwide</span>
+      <span class="status-explore">
+        <span>Scroll to explore</span>
+        <svg class="icon" viewBox="0 0 24 24"><path d="M19 13l-7 7-7-7M12 4v16"/></svg>
+      </span>
+    </div>
+  </section>
 </main>
 
 <app-footer 
