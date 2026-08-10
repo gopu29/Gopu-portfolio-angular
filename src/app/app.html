@@ -1,4 +1,10 @@
-<app-header></app-header>
+<app-header 
+  [timeStr]="timeStr()" 
+  [dateStr]="dateStr()"
+  (scrollTo)="scrollToSection($event)"
+  (openMenu)="openNavMenu()"
+  (openContact)="openRequestModal()">
+</app-header>
 
 <main id="main">
   <div style="padding: 10rem 2rem; text-align: center;">
@@ -7,4 +13,154 @@
   </div>
 </main>
 
-<app-footer></app-footer>
+<app-footer 
+  (scrollTo)="scrollToSection($event)"
+  (openContact)="openRequestModal()">
+</app-footer>
+
+<!-- NavMenu (full-screen overlay) -->
+<div id="nav-menu" class="nav-menu" [class.open]="isMenuOpen()" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+  <div class="shell" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+    <!-- Top bar -->
+    <div class="nav-menu-top">
+      <div class="nav-menu-logo">
+        <svg class="icon icon-fill" style="font-size: 1.25rem;" viewBox="0 0 48 48">
+          <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
+        </svg>
+        <span>Lumora</span>
+      </div>
+
+      <button class="close-btn" (click)="closeNavMenu()" aria-label="Close Navigation Menu">
+        <svg class="icon" style="font-size: 0.875rem;" viewBox="0 0 24 24">
+          <path d="M4 4l16 16M20 4 4 20" />
+        </svg>
+        <span>Close</span>
+      </button>
+    </div>
+
+    <!-- Nav -->
+    <div class="nav-menu-content">
+      <ul class="nav-menu-list">
+        <li class="nav-menu-item">
+          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('home');">
+            <span class="nav-menu-index">01</span>
+            <span class="nav-menu-label">Home</span>
+          </button>
+        </li>
+        <li class="nav-menu-item">
+          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('works');">
+            <span class="nav-menu-index">02</span>
+            <span class="nav-menu-label">Work</span>
+          </button>
+        </li>
+        <li class="nav-menu-item">
+          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('services');">
+            <span class="nav-menu-index">03</span>
+            <span class="nav-menu-label">Services</span>
+          </button>
+        </li>
+        <li class="nav-menu-item">
+          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('about');">
+            <span class="nav-menu-index">04</span>
+            <span class="nav-menu-label">Studio</span>
+          </button>
+        </li>
+        <li class="nav-menu-item">
+          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('footer');">
+            <span class="nav-menu-index">05</span>
+            <span class="nav-menu-label">Careers</span>
+          </button>
+        </li>
+        <li class="nav-menu-item">
+          <button class="nav-menu-link" (click)="closeNavMenu(); openRequestModal();">
+            <span class="nav-menu-index">06</span>
+            <span class="nav-menu-label">Contact</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="nav-menu-bottom">
+      <div class="nav-menu-bottom-left">
+        <span>Local time —</span>
+        <span>{{ timeStr() }}</span>
+      </div>
+      <button class="nav-menu-bottom-right-btn" (click)="closeNavMenu(); openRequestModal();">
+        Start a project →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- RequestModal (submit) -->
+<div id="request-modal" class="modal-backdrop" [class.open]="isContactModalOpen()" [class.closing]="isContactModalClosing()" (click)="closeRequestModal()" role="dialog" aria-modal="true">
+  <div class="modal-panel" (click)="$event.stopPropagation();">
+    <!-- Close button -->
+    <button class="modal-close-btn" (click)="closeRequestModal()" aria-label="Close Contact Dialog">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M4 4l16 16M20 4 4 20" />
+      </svg>
+    </button>
+
+    <!-- Default state: Form -->
+    @if (!isContactSuccess()) {
+      <form id="request-form" class="modal-form" (submit)="handleFormSubmit($event)">
+        <div class="modal-head">
+          <div class="eyebrow dark">
+            <div class="eyebrow-dot"></div>
+            <span>Start a project</span>
+          </div>
+          <h2 class="modal-title">Tell us what you're building.</h2>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-name">Name</label>
+          <input type="text" id="form-name" class="form-control" [value]="formName()" (input)="formName.set(nameInput.value)" #nameInput placeholder="Your name" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-email">Email</label>
+          <input type="email" id="form-email" class="form-control" [value]="formEmail()" (input)="formEmail.set(emailInput.value)" #emailInput placeholder="you@company.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-project">Project</label>
+          <textarea id="form-project" class="form-control" rows="4" [value]="formProject()" (input)="formProject.set(projectInput.value)" #projectInput placeholder="A few words about your project, timeline, and budget." required></textarea>
+        </div>
+
+        <div class="modal-bottom">
+          <span class="modal-note">We reply within one business day.</span>
+          <button type="submit" class="pill-btn dark with-arrow arrow-up-right" [disabled]="isContactSending()">
+            <span class="pill-btn-inner">
+              <span class="btn-text">
+                @if (isContactSending()) {
+                  Sending…
+                } @else {
+                  Send request
+                }
+              </span>
+              <span class="pill-btn-badge">
+                <svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
+              </span>
+            </span>
+          </button>
+        </div>
+      </form>
+    } @else {
+      <!-- Success state -->
+      <div id="request-success" class="modal-success" style="display: flex;">
+        <div class="success-badge">
+          <svg class="icon icon-fill" viewBox="0 0 48 48" style="font-size: 1.5rem;">
+            <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
+          </svg>
+        </div>
+        <h2 class="success-title">Request received</h2>
+        <p class="success-desc">Thanks for reaching out — we'll get back to you within one business day.</p>
+        <button type="button" class="pill-btn dark no-arrow" (click)="closeRequestModal()" style="margin-top: 0.5rem;">
+          <span class="pill-btn-inner">Close</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
