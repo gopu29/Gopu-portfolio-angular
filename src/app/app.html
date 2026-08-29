@@ -6,9 +6,9 @@
         <svg class="icon icon-fill text-accent-from" viewBox="0 0 48 48">
           <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
         </svg>
-        <span>Lumora</span>
+        <span>{{ resume().name }}</span>
       </div>
-      <p class="loader-tagline">Bold ideas, shipped with quiet precision.</p>
+      <p class="loader-tagline">Full Stack Developer | Angular & Ionic Developer</p>
     </div>
     <div class="loader-progress-block">
       <div class="loader-track">
@@ -35,7 +35,7 @@
   <section id="home" class="hero">
     <!-- Full-bleed before/after liquid reveal -->
     <div class="hero-liquid-container" id="hero-liquid-container">
-      <img class="hero-img-before" src="after2.jpg" alt="Lumora Studio Hero Base" />
+      <img class="hero-img-before" src="after2.jpg" alt="Govinda P B Portfolio Hero Base" />
       <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
     </div>
 
@@ -43,7 +43,7 @@
     <div class="hero-vignette"></div>
 
     <!-- Brand watermark -->
-    <div class="hero-watermark">LUMORA</div>
+    <div class="hero-watermark">GOVINDA</div>
 
     <!-- Content grid -->
     <div class="shell hero-content">
@@ -52,14 +52,14 @@
         <div class="hero-eyebrow-wrapper">
           <div class="eyebrow dark">
             <div class="eyebrow-dot"></div>
-            <span>Independent Studio</span>
+            <span>Angular & Ionic Specialist</span>
           </div>
         </div>
 
         <h1 class="hero-h1">
-          <span class="reveal-line-container"><span class="reveal-line-inner">Bold ideas,</span></span>
-          <span class="reveal-line-container"><span class="reveal-line-inner">shipped with</span></span>
-          <span class="reveal-line-container"><span class="reveal-line-inner" style="color: var(--accent);">quiet precision</span></span>
+          <span class="reveal-line-container"><span class="reveal-line-inner">High-performance</span></span>
+          <span class="reveal-line-container"><span class="reveal-line-inner">web & mobile apps,</span></span>
+          <span class="reveal-line-container"><span class="reveal-line-inner" style="color: var(--accent);">built with precision.</span></span>
         </h1>
 
         <div class="hero-rating-wrapper">
@@ -70,21 +70,21 @@
             <svg class="icon icon-fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z"/></svg>
             <svg class="icon icon-fill" viewBox="0 0 24 24"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z"/></svg>
           </div>
-          <span class="rating-text">200+ brands shipped</span>
+          <span class="rating-text">2+ Years Experience</span>
         </div>
 
         <div class="hero-cta-row">
           <button class="pill-btn dark with-arrow arrow-up-right" (click)="openRequestModal()" aria-label="Let's Talk - Open Contact Form">
             <span class="pill-btn-inner">
-              Let's Talk
+              Hire Me
               <span class="pill-btn-badge">
                 <svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
               </span>
             </span>
           </button>
-          <button class="pill-btn outline with-arrow arrow-right" (click)="scrollToSection('works')" aria-label="View Work - Portfolio Section">
+          <button class="pill-btn outline with-arrow arrow-right" (click)="scrollToSection('works')" aria-label="View Projects">
             <span class="pill-btn-inner">
-              View Work
+              View Projects
               <span class="pill-btn-badge">
                 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </span>
@@ -110,24 +110,24 @@
                      [class.slide-out-next]="previousCarouselIndex() === 0 && carouselDirection() === 'next'"
                      [class.slide-out-prev]="previousCarouselIndex() === 0 && carouselDirection() === 'prev'"
                      data-index="0">
-                  <span class="carousel-caption">Conversion design</span>
-                  <h4 class="carousel-title">Crafted to convert.</h4>
+                  <span class="carousel-caption">Frontend</span>
+                  <h4 class="carousel-title">Scalable Angular Architectures.</h4>
                 </div>
                 <div class="carousel-text-slide" 
                      [class.active]="currentCarouselIndex() === 1"
                      [class.slide-out-next]="previousCarouselIndex() === 1 && carouselDirection() === 'next'"
                      [class.slide-out-prev]="previousCarouselIndex() === 1 && carouselDirection() === 'prev'"
                      data-index="1">
-                  <span class="carousel-caption">Engineering</span>
-                  <h4 class="carousel-title">Built to scale.</h4>
+                  <span class="carousel-caption">Mobile</span>
+                  <h4 class="carousel-title">Cross-platform Ionic Apps.</h4>
                 </div>
                 <div class="carousel-text-slide" 
                      [class.active]="currentCarouselIndex() === 2"
                      [class.slide-out-next]="previousCarouselIndex() === 2 && carouselDirection() === 'next'"
                      [class.slide-out-prev]="previousCarouselIndex() === 2 && carouselDirection() === 'prev'"
                      data-index="2">
-                  <span class="carousel-caption">Brand systems</span>
-                  <h4 class="carousel-title">Designed to last.</h4>
+                  <span class="carousel-caption">Full Stack</span>
+                  <h4 class="carousel-title">APIs, MongoDB & Firebase.</h4>
                 </div>
               </div>
 
@@ -150,37 +150,41 @@
           </div>
         </div>
 
-        <!-- Partners -->
+        <!-- Partners (Tech Stack Focus) -->
         <div class="hero-partners">
-          <p class="partners-label">Trusted by</p>
+          <p class="partners-label">Core Tech Stack</p>
           <div class="partners-grid">
             <span class="partner-chip">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
-              <span>Kaido</span>
+              <svg class="icon icon-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Angular</span>
             </span>
             <span class="partner-chip">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
-              <span>Northpeak</span>
+              <svg class="icon icon-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Ionic</span>
             </span>
             <span class="partner-chip">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
-              <span>Vellum</span>
+              <svg class="icon icon-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>TypeScript</span>
             </span>
             <span class="partner-chip">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
-              <span>Orbit</span>
+              <svg class="icon icon-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>SCSS</span>
             </span>
             <span class="partner-chip">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
-              <span>Brightline</span>
+              <svg class="icon icon-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>REST APIs</span>
             </span>
             <span class="partner-chip">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
-              <span>Cobalt</span>
+              <svg class="icon icon-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Firebase</span>
             </span>
             <span class="partner-chip">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
-              <span>Mesa</span>
+              <svg class="icon icon-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>MongoDB</span>
+            </span>
+            <span class="partner-chip">
+              <svg class="icon icon-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+              <span>Git</span>
             </span>
           </div>
         </div>
@@ -189,8 +193,8 @@
 
     <!-- Bottom status bar -->
     <div class="shell hero-status-bar">
-      <span>Working since 2014</span>
-      <span class="status-center">Remote-first, worldwide</span>
+      <span>June 2024 - Present</span>
+      <span class="status-center">Kochi, Kerala, India</span>
       <span class="status-explore">
         <span>Scroll to explore</span>
         <svg class="icon" viewBox="0 0 24 24"><path d="M19 13l-7 7-7-7M12 4v16"/></svg>
@@ -210,7 +214,7 @@
         <div class="about-eyebrow">
           <div class="eyebrow dark">
             <div class="eyebrow-dot"></div>
-            <span>The Studio</span>
+            <span>Profile</span>
           </div>
         </div>
         <div class="about-globe-text" id="about-globe-text">
@@ -218,60 +222,42 @@
             <circle cx="12" cy="12" r="9.25"/>
             <path d="M12 2.75c2.6 2.3 4 5.8 4 9.25s-1.4 6.95-4 9.25c-2.6-2.3-4-5.8-4-9.25s1.4-6.95 4-9.25zM2.75 12h18.5"/>
           </svg>
-          <span>A distributed team building across every time zone.</span>
+          <span>Dedicated developer delivering robust production systems.</span>
         </div>
       </div>
 
       <!-- Right About Statement -->
       <div class="about-right">
         <h2 class="about-statement" id="about-text">
-          <span class="reveal-word"><span class="reveal-word-inner">We</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner">partner</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner">with</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner">ambitious</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner">teams</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner">to</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner">ship</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">digital</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">products,</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">brand</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">systems,</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">and</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">the</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">strategy</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">that</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">holds</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">them</span></span>
-          <span class="reveal-word"><span class="reveal-word-inner text-muted">together.</span></span>
+          @for (word of resume().summary.split(' '); track $index) {
+            <span class="reveal-word"><span class="reveal-word-inner" [class.text-muted]="$index > 13">{{ word }}</span></span>
+          }
         </h2>
 
         <div class="about-footer-row" id="about-footer-row">
           <div class="social-block">
-            <span class="social-label">Find us online</span>
+            <span class="social-label">Find me online</span>
             <div class="social-chips">
-              <a href="#" class="social-chip accent" aria-label="X (Twitter)">
+              <a [href]="resume().linkedin" target="_blank" rel="noopener noreferrer" class="social-chip accent" aria-label="LinkedIn">
                 <span class="social-chip-inner">
-                  <svg class="icon icon-fill" style="font-size: 1rem;" viewBox="0 0 24 24">
-                    <path d="M4 4l16 16M20 4 4 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <svg class="icon icon-fill" viewBox="0 0 24 24">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0-1.68 1.68c0 .93.75 1.69 1.68 1.69a1.69 1.69 0 0 0 1.69-1.69 1.68 1.68 0 0 0-1.69-1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
                   </svg>
                 </span>
               </a>
-              <a href="#" class="social-chip neutral" aria-label="Behance">
+              <a [href]="resume().github" target="_blank" rel="noopener noreferrer" class="social-chip neutral" aria-label="GitHub">
                 <span class="social-chip-inner">
-                  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
-                </span>
-              </a>
-              <a href="#" class="social-chip neutral" aria-label="Dribbble">
-                <span class="social-chip-inner">
-                  <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+                  <svg class="icon icon-fill" viewBox="0 0 24 24">
+                    <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                  </svg>
                 </span>
               </a>
             </div>
           </div>
 
-          <button class="pill-btn outline with-arrow arrow-right" (click)="scrollToSection('about')" aria-label="About Us">
+          <button class="pill-btn outline with-arrow arrow-right" (click)="scrollToSection('experience')" aria-label="Experience & Education">
             <span class="pill-btn-inner">
-              About Us
+              Experience
               <span class="pill-btn-badge">
                 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </span>
@@ -282,23 +268,21 @@
     </div>
   </section>
 
-  <!-- CreateBand ("We Build → Better") -->
+  <!-- CreateBand (Skills quick banner) -->
   <section class="create-band">
     <div class="shell">
       <ul class="create-band-list" id="create-band-list" data-stagger-target=".create-band-item" data-stagger-interval="120" data-stagger-delay="0">
         <li class="create-band-item">
-          <div class="create-tile variant-light">We</div>
+          <div class="create-tile variant-light">Angular</div>
         </li>
         <li class="create-band-item">
-          <div class="create-tile variant-accent">Build</div>
+          <div class="create-tile variant-accent">Ionic</div>
         </li>
         <li class="create-band-item">
-          <div class="create-tile variant-dark">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </div>
+          <div class="create-tile variant-dark">TypeScript</div>
         </li>
         <li class="create-band-item">
-          <div class="create-tile variant-ghost">Better</div>
+          <div class="create-tile variant-ghost">SCSS</div>
         </li>
       </ul>
     </div>
@@ -315,202 +299,167 @@
         </div>
         <div class="portfolio-title-container" id="portfolio-title-container">
           <h2 class="portfolio-title">
-            <span class="reveal-line-container"><span class="reveal-line-inner">Selected Work</span></span>
+            <span class="reveal-line-container"><span class="reveal-line-inner">Selected Projects</span></span>
           </h2>
         </div>
       </div>
 
       <!-- Cards Grid -->
       <ul class="portfolio-grid" id="portfolio-grid" data-stagger-target=".portfolio-item" data-stagger-interval="90" data-stagger-delay="0">
-        <!-- Card 1 -->
-        <li class="portfolio-item">
-          <a href="#" (click)="openRequestModal(); $event.preventDefault()">
-            <article class="portfolio-card">
-              <div class="portfolio-card-top">
-                <span class="portfolio-meta">Branding — 2025</span>
-                <div class="portfolio-arrow-badge">
-                  <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        @for (project of resume().projects; track project.name) {
+          <li class="portfolio-item">
+            <a [href]="project.url || '#'" [target]="project.url ? '_blank' : '_self'" (click)="!project.url && $event.preventDefault()">
+              <article class="portfolio-card">
+                <div class="portfolio-card-top">
+                  <span class="portfolio-meta">{{ project.type }}</span>
+                  @if (project.url) {
+                    <div class="portfolio-arrow-badge">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                    </div>
+                  }
                 </div>
-              </div>
-              <div class="portfolio-watermark">
-                <div class="portfolio-watermark-inner">
-                  <svg class="icon icon-fill" viewBox="0 0 48 48" style="font-size: 4.5rem;"><path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/></svg>
-                  <span class="portfolio-watermark-reg">®</span>
+                <div class="portfolio-watermark">
+                  <div class="portfolio-watermark-inner">
+                    <svg class="icon icon-fill" viewBox="0 0 48 48" style="font-size: 4.5rem;"><path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/></svg>
+                    <span class="portfolio-watermark-reg">®</span>
+                  </div>
                 </div>
-              </div>
-              <div class="portfolio-card-bottom">
-                <h3 class="portfolio-name">Aster Labs</h3>
-                <p class="portfolio-desc">A complete identity and go-to-market system for a fast-moving research startup.</p>
-                <div class="portfolio-tags">
-                  <span class="tag-chip">Branding</span>
-                  <span class="tag-chip">Strategy</span>
-                  <span class="tag-chip">Design</span>
+                <div class="portfolio-card-bottom">
+                  <h3 class="portfolio-name">{{ project.name }}</h3>
+                  <p class="portfolio-desc">{{ project.desc }}</p>
+                  <div class="portfolio-tags">
+                    @for (tech of project.tech; track tech) {
+                      <span class="tag-chip">{{ tech }}</span>
+                    }
+                  </div>
                 </div>
-              </div>
-            </article>
-          </a>
-        </li>
-
-        <!-- Card 2 -->
-        <li class="portfolio-item">
-          <a href="#" (click)="openRequestModal(); $event.preventDefault()">
-            <article class="portfolio-card">
-              <div class="portfolio-card-top">
-                <span class="portfolio-meta">Product — 2024</span>
-                <div class="portfolio-arrow-badge">
-                  <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
-                </div>
-              </div>
-              <div class="portfolio-watermark">
-                <div class="portfolio-watermark-inner">
-                  <svg class="icon icon-fill" viewBox="0 0 48 48" style="font-size: 4.5rem;"><path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/></svg>
-                  <span class="portfolio-watermark-reg">®</span>
-                </div>
-              </div>
-              <div class="portfolio-card-bottom">
-                <h3 class="portfolio-name">Nova Finance</h3>
-                <p class="portfolio-desc">A finance platform reimagined — clear data, calm interfaces, and effortless flows.</p>
-                <div class="portfolio-tags">
-                  <span class="tag-chip">Product Design</span>
-                  <span class="tag-chip">Web App</span>
-                  <span class="tag-chip">QA</span>
-                </div>
-              </div>
-            </article>
-          </a>
-        </li>
-
-        <!-- Card 3 -->
-        <li class="portfolio-item">
-          <a href="#" (click)="openRequestModal(); $event.preventDefault()">
-            <article class="portfolio-card">
-              <div class="portfolio-card-top">
-                <span class="portfolio-meta">Identity — 2023</span>
-                <div class="portfolio-arrow-badge">
-                  <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
-                </div>
-              </div>
-              <div class="portfolio-watermark">
-                <div class="portfolio-watermark-inner">
-                  <svg class="icon icon-fill" viewBox="0 0 48 48" style="font-size: 4.5rem;"><path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/></svg>
-                  <span class="portfolio-watermark-reg">®</span>
-                </div>
-              </div>
-              <div class="portfolio-card-bottom">
-                <h3 class="portfolio-name">Helio Studio</h3>
-                <p class="portfolio-desc">A bold visual identity and art direction system built to scale across every surface.</p>
-                <div class="portfolio-tags">
-                  <span class="tag-chip">Brand Identity</span>
-                  <span class="tag-chip">Art Direction</span>
-                </div>
-              </div>
-            </article>
-          </a>
-        </li>
-
-        <!-- Card 4 -->
-        <li class="portfolio-item">
-          <a href="#" (click)="openRequestModal(); $event.preventDefault()">
-            <article class="portfolio-card">
-              <div class="portfolio-card-top">
-                <span class="portfolio-meta">Mobile — 2023</span>
-                <div class="portfolio-arrow-badge">
-                  <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
-                </div>
-              </div>
-              <div class="portfolio-watermark">
-                <div class="portfolio-watermark-inner">
-                  <svg class="icon icon-fill" viewBox="0 0 48 48" style="font-size: 4.5rem;"><path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/></svg>
-                  <span class="portfolio-watermark-reg">®</span>
-                </div>
-              </div>
-              <div class="portfolio-card-bottom">
-                <h3 class="portfolio-name">Pulse Health</h3>
-                <p class="portfolio-desc">A wellness app grounded in research, shipped end to end from concept to release.</p>
-                <div class="portfolio-tags">
-                  <span class="tag-chip">Mobile App</span>
-                  <span class="tag-chip">UX Research</span>
-                  <span class="tag-chip">Development</span>
-                </div>
-              </div>
-            </article>
-          </a>
-        </li>
+              </article>
+            </a>
+          </li>
+        }
       </ul>
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section id="services" class="services">
+  <!-- Skills Section -->
+  <section id="skills" class="services">
     <div class="shell services-inner">
       <div class="eyebrow dark">
         <div class="eyebrow-dot"></div>
-        <span>Services</span>
+        <span>Skills</span>
       </div>
       
       <div id="services-title-container">
         <h2 class="services-title">
-          <span class="reveal-line-container"><span class="reveal-line-inner">What we do best</span></span>
+          <span class="reveal-line-container"><span class="reveal-line-inner">Technical Expertise</span></span>
         </h2>
       </div>
 
       <ul class="services-list" id="services-list" data-stagger-target=".services-item" data-stagger-interval="80" data-stagger-delay="0">
         <!-- Row 1 -->
         <li class="services-item">
-          <a href="#" class="service-row-link" (click)="openRequestModal(); $event.preventDefault()">
-            <div class="service-row">
-              <span class="service-index">01</span>
-              <h3 class="service-name">Software Development</h3>
-              <p class="service-desc">Scalable web & mobile products built to last.</p>
-              <div class="service-arrow-badge">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
-              </div>
-            </div>
-          </a>
+          <div class="service-row">
+            <span class="service-index">01</span>
+            <h3 class="service-name">Frontend Development</h3>
+            <p class="service-desc">{{ resume().skills.frontend.join(', ') }}</p>
+          </div>
         </li>
         
         <!-- Row 2 -->
         <li class="services-item">
-          <a href="#" class="service-row-link" (click)="openRequestModal(); $event.preventDefault()">
-            <div class="service-row">
-              <span class="service-index">02</span>
-              <h3 class="service-name">Product Design</h3>
-              <p class="service-desc">Interfaces that feel effortless and look sharp.</p>
-              <div class="service-arrow-badge">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
-              </div>
-            </div>
-          </a>
+          <div class="service-row">
+            <span class="service-index">02</span>
+            <h3 class="service-name">UI & Responsive Design</h3>
+            <p class="service-desc">{{ resume().skills.ui.join(', ') }}</p>
+          </div>
         </li>
 
         <!-- Row 3 -->
         <li class="services-item">
-          <a href="#" class="service-row-link" (click)="openRequestModal(); $event.preventDefault()">
-            <div class="service-row">
-              <span class="service-index">03</span>
-              <h3 class="service-name">Quality Assurance</h3>
-              <p class="service-desc">Rigorous testing for flawless, confident releases.</p>
-              <div class="service-arrow-badge">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
-              </div>
-            </div>
-          </a>
+          <div class="service-row">
+            <span class="service-index">03</span>
+            <h3 class="service-name">Backend & API Integration</h3>
+            <p class="service-desc">{{ resume().skills.backend.join(', ') }}</p>
+          </div>
         </li>
 
         <!-- Row 4 -->
         <li class="services-item">
-          <a href="#" class="service-row-link" (click)="openRequestModal(); $event.preventDefault()">
-            <div class="service-row">
-              <span class="service-index">04</span>
-              <h3 class="service-name">Consulting</h3>
-              <p class="service-desc">Strategy and direction for ambitious teams.</p>
-              <div class="service-arrow-badge">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
-              </div>
-            </div>
-          </a>
+          <div class="service-row">
+            <span class="service-index">04</span>
+            <h3 class="service-name">Tools & Workflow</h3>
+            <p class="service-desc">{{ resume().skills.tools.join(', ') }}</p>
+          </div>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <!-- Experience & Education Section -->
+  <section id="experience" class="about" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-bottom: 5rem;">
+    <div class="shell" style="padding-top: 5rem;">
+      <div class="eyebrow dark" style="margin-bottom: 1.5rem;">
+        <div class="eyebrow-dot" style="background: var(--accent);"></div>
+        <span>Timeline</span>
+      </div>
+      
+      <h2 class="services-title" style="margin-bottom: 4rem;">
+        <span class="reveal-line-container"><span class="reveal-line-inner">Experience & Education</span></span>
+      </h2>
+
+      <div class="timeline-grid-layout">
+        <!-- Left Col: Experience -->
+        <div class="timeline-column">
+          <h3 class="timeline-column-heading">Professional Experience</h3>
+          
+          @for (exp of resume().experience; track exp.company) {
+            <div class="timeline-node">
+              <div class="timeline-node-dot"></div>
+              <div class="timeline-node-content">
+                <span class="timeline-node-date">{{ exp.period }}</span>
+                <h4 class="timeline-node-title">{{ exp.role }}</h4>
+                <p class="timeline-node-org">{{ exp.company }}</p>
+                <ul class="timeline-node-bullets">
+                  @for (resp of exp.responsibilities; track resp) {
+                    <li>{{ resp }}</li>
+                  }
+                </ul>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Right Col: Education & Certifications -->
+        <div class="timeline-column">
+          <h3 class="timeline-column-heading">Education & Certs</h3>
+
+          @for (edu of resume().education; track edu.degree) {
+            <div class="timeline-node">
+              <div class="timeline-node-dot"></div>
+              <div class="timeline-node-content">
+                <span class="timeline-node-date">{{ edu.year }}</span>
+                <h4 class="timeline-node-title">{{ edu.degree }}</h4>
+                <p class="timeline-node-org">{{ edu.college }}</p>
+                <div class="timeline-node-meta">
+                  <span class="timeline-tag">CGPA: {{ edu.cgpa }}</span>
+                </div>
+              </div>
+            </div>
+          }
+
+          <div class="timeline-node">
+            <div class="timeline-node-dot"></div>
+            <div class="timeline-node-content">
+              <h4 class="timeline-node-title">Certifications</h4>
+              <ul class="timeline-node-bullets" style="margin-top: 0.75rem;">
+                @for (cert of resume().certifications; track cert) {
+                  <li>{{ cert }}</li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -520,12 +469,12 @@
       <div id="stats-panel" class="stats-panel">
         <div class="eyebrow light">
           <div class="eyebrow-dot"></div>
-          <span>By the numbers</span>
+          <span>Overview Metrics</span>
         </div>
 
         <div id="stats-title-container">
           <h2 class="stats-title">
-            <span class="reveal-line-container"><span class="reveal-line-inner">Proof in the work, not the words.</span></span>
+            <span class="reveal-line-container"><span class="reveal-line-inner">Precision in every project.</span></span>
           </h2>
         </div>
 
@@ -533,33 +482,33 @@
           <!-- Stat 1 -->
           <li class="stat-item">
             <div class="stat-number">
-              <span class="stat-number-value" data-target="150">0</span>+
+              <span class="stat-number-value" data-target="2">0</span>+
             </div>
-            <p class="stat-label">Projects delivered</p>
+            <p class="stat-label">Years of Experience</p>
           </li>
 
           <!-- Stat 2 -->
           <li class="stat-item">
             <div class="stat-number">
-              <span class="stat-number-value" data-target="98">0</span>%
+              <span class="stat-number-value" data-target="4">0</span>
             </div>
-            <p class="stat-label">Client retention</p>
+            <p class="stat-label">Production Projects</p>
           </li>
 
           <!-- Stat 3 -->
           <li class="stat-item">
             <div class="stat-number">
-              <span class="stat-number-value" data-target="12">0</span>
+              <span class="stat-number-value" data-target="8">0</span>.3
             </div>
-            <p class="stat-label">Years of craft</p>
+            <p class="stat-label">MCA CGPA</p>
           </li>
 
           <!-- Stat 4 -->
           <li class="stat-item">
             <div class="stat-number">
-              <span class="stat-number-value" data-target="40">0</span>+
+              <span class="stat-number-value" data-target="4">0</span>
             </div>
-            <p class="stat-label">Team members</p>
+            <p class="stat-label">Core Strengths</p>
           </li>
         </ul>
       </div>
@@ -581,7 +530,7 @@
         <svg class="icon icon-fill" style="font-size: 1.25rem;" viewBox="0 0 48 48">
           <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
         </svg>
-        <span>Lumora</span>
+        <span>{{ resume().name }}</span>
       </div>
 
       <button class="close-btn" (click)="closeNavMenu()" aria-label="Close Navigation Menu">
@@ -604,30 +553,24 @@
         <li class="nav-menu-item">
           <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('works');">
             <span class="nav-menu-index">02</span>
-            <span class="nav-menu-label">Work</span>
+            <span class="nav-menu-label">Projects</span>
           </button>
         </li>
         <li class="nav-menu-item">
-          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('services');">
+          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('skills');">
             <span class="nav-menu-index">03</span>
-            <span class="nav-menu-label">Services</span>
+            <span class="nav-menu-label">Skills</span>
           </button>
         </li>
         <li class="nav-menu-item">
-          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('about');">
+          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('experience');">
             <span class="nav-menu-index">04</span>
-            <span class="nav-menu-label">Studio</span>
-          </button>
-        </li>
-        <li class="nav-menu-item">
-          <button class="nav-menu-link" (click)="closeNavMenu(); scrollToSection('footer');">
-            <span class="nav-menu-index">05</span>
-            <span class="nav-menu-label">Careers</span>
+            <span class="nav-menu-label">Experience</span>
           </button>
         </li>
         <li class="nav-menu-item">
           <button class="nav-menu-link" (click)="closeNavMenu(); openRequestModal();">
-            <span class="nav-menu-index">06</span>
+            <span class="nav-menu-index">05</span>
             <span class="nav-menu-label">Contact</span>
           </button>
         </li>
@@ -641,7 +584,7 @@
         <span>{{ timeStr() }}</span>
       </div>
       <button class="nav-menu-bottom-right-btn" (click)="closeNavMenu(); openRequestModal();">
-        Start a project →
+        Get in touch →
       </button>
     </div>
   </div>
@@ -663,9 +606,9 @@
         <div class="modal-head">
           <div class="eyebrow dark">
             <div class="eyebrow-dot"></div>
-            <span>Start a project</span>
+            <span>Hire / Connect</span>
           </div>
-          <h2 class="modal-title">Tell us what you're building.</h2>
+          <h2 class="modal-title">Let's discuss an opportunity.</h2>
         </div>
 
         <div class="form-group">
@@ -675,23 +618,23 @@
 
         <div class="form-group">
           <label class="form-label" for="form-email">Email</label>
-          <input type="email" id="form-email" class="form-control" [value]="formEmail()" (input)="formEmail.set(emailInput.value)" #emailInput placeholder="you@company.com" required />
+          <input type="email" id="form-email" class="form-control" [value]="formEmail()" (input)="formEmail.set(emailInput.value)" #emailInput placeholder="your.email@domain.com" required />
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="form-project">Project</label>
-          <textarea id="form-project" class="form-control" rows="4" [value]="formProject()" (input)="formProject.set(projectInput.value)" #projectInput placeholder="A few words about your project, timeline, and budget." required></textarea>
+          <label class="form-label" for="form-project">Message</label>
+          <textarea id="form-project" class="form-control" rows="4" [value]="formProject()" (input)="formProject.set(projectInput.value)" #projectInput placeholder="Write your message here..." required></textarea>
         </div>
 
         <div class="modal-bottom">
-          <span class="modal-note">We reply within one business day.</span>
+          <span class="modal-note">I typically reply within a few hours.</span>
           <button type="submit" class="pill-btn dark with-arrow arrow-up-right" [disabled]="isContactSending()">
             <span class="pill-btn-inner">
               <span class="btn-text">
                 @if (isContactSending()) {
                   Sending…
                 } @else {
-                  Send request
+                  Send message
                 }
               </span>
               <span class="pill-btn-badge">
@@ -709,8 +652,8 @@
             <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
           </svg>
         </div>
-        <h2 class="success-title">Request received</h2>
-        <p class="success-desc">Thanks for reaching out — we'll get back to you within one business day.</p>
+        <h2 class="success-title">Message sent!</h2>
+        <p class="success-desc">Thank you for reaching out — I'll get back to you as soon as possible.</p>
         <button type="button" class="pill-btn dark no-arrow" (click)="closeRequestModal()" style="margin-top: 0.5rem;">
           <span class="pill-btn-inner">Close</span>
         </button>
