@@ -1,6 +1,7 @@
 import { Component, signal, computed, afterNextRender } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { RESUME_DATA } from './resume-data';
 import Lenis from 'lenis';
 
 @Component({
@@ -10,6 +11,9 @@ import Lenis from 'lenis';
   styleUrl: './app.scss'
 })
 export class App {
+  // Resume Data
+  resume = signal(RESUME_DATA);
+
   // Global States
   isMenuOpen = signal(false);
   isContactModalOpen = signal(false);

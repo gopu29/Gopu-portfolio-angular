@@ -1,0 +1,108 @@
+export interface Project {
+  name: string;
+  type: string;
+  desc: string;
+  tech: string[];
+  url?: string;
+}
+
+export interface Experience {
+  company: string;
+  role: string;
+  period: string;
+  responsibilities: string[];
+}
+
+export interface Education {
+  degree: string;
+  college: string;
+  year: string;
+  cgpa: number;
+}
+
+export interface ResumeData {
+  name: string;
+  title: string;
+  phone: string;
+  email: string;
+  github: string;
+  linkedin: string;
+  summary: string;
+  skills: {
+    frontend: string[];
+    ui: string[];
+    backend: string[];
+    tools: string[];
+  };
+  experience: Experience[];
+  education: Education[];
+  certifications: string[];
+  projects: Project[];
+  strengths: string[];
+}
+
+export const RESUME_DATA: ResumeData = {
+  "name": "Govinda P B",
+  "title": "Full Stack Developer | Angular & Ionic Developer",
+  "phone": "9526851909",
+  "email": "govindagopuucc@gmail.com",
+  "github": "https://github.com/gopu29",
+  "linkedin": "https://www.linkedin.com/in/govinda-p-b-b44611298",
+  "summary": "Frontend Developer (Angular) with 2+ years of experience building responsive, scalable, and high-performance web and mobile applications using Angular, TypeScript, RxJS, and Ionic. Skilled in developing reusable UI components, integrating RESTful APIs, implementing state management, and ensuring cross-browser compatibility.",
+  "skills": {
+    "frontend": ["Angular", "Ionic Angular", "TypeScript", "JavaScript (ES6)", "HTML5", "CSS3/SCSS"],
+    "ui": ["CSS3", "SCSS", "Flexbox", "CSS Grid", "Bootstrap", "Angular Material", "Responsive UI Design", "GSAP", "AOS", "Codepen"],
+    "backend": ["RESTful API Integration", "MongoDB", "Firebase", "Angular HTTP Client", "JSON Handling"],
+    "tools": ["VS Code", "Git", "Figma", "Cursor", "AI-Assisted Development Tools"]
+  },
+  "experience": [
+    {
+      "company": "SAIHA SOFTWARE TECHNOLOGIES PVT. LTD., KOCHI, KERALA",
+      "role": "FULL STACK DEVELOPER (ANGULAR)",
+      "period": "June 2024 - Present",
+      "responsibilities": [
+        "Developing responsive web apps using Angular and TypeScript",
+        "Building reusable components, services, and directives",
+        "Integrating RESTful APIs with Angular services",
+        "Designing responsive layouts using CSS3, Flexbox, CSS Grid",
+        "Developing cross-platform mobile apps using Ionic + Angular",
+        "Coordinating with QA teams to fix bugs",
+        "Working with UI/UX designers for accessibility and UX"
+      ]
+    }
+  ],
+  "education": [
+    { "degree": "MCA", "college": "Union Christian College Aluva", "year": "2022-2024", "cgpa": 8.3 },
+    { "degree": "BCA", "college": "Jai Bharath Arts and Science College Perumbavoor", "year": "2019-2022", "cgpa": 6.6 }
+  ],
+  "certifications": ["Python For Data Science – NPTEL"],
+  "projects": [
+    {
+      "name": "FUP – Portfolio Management System (Gabon)",
+      "type": "Angular Web Application",
+      "desc": "Enterprise-level Angular app for company registration and financial data management for Gabonese government. Multi-step forms, admin modules, Chart.js dashboards, Firebase notifications.",
+      "tech": ["Angular", "TypeScript", "SCSS", "Bootstrap", "Angular Material", "PrimeNG", "Chart.js", "Firebase", "REST APIs"]
+    },
+    {
+      "name": "PUPS – Portail Unique de Prévoyance Sociale (Gabon)",
+      "type": "Government Social Security Management Platform",
+      "desc": "Government web platform for digital registration of companies/employees for CNSS and CNAMGS. API integration, contribution reports, employee lifecycle management, admin dashboards.",
+      "tech": ["Angular", "TypeScript", "SCSS", "Bootstrap", "Angular Material", "Chart.js", "Firebase", "REST APIs"]
+    },
+    {
+      "name": "RedTeam CRM - Cybersecurity Training Management Platform",
+      "type": "Angular Web App & Ionic Mobile App",
+      "desc": "Full-featured CRM for cybersecurity academies. 40+ role-based components, lead lifecycle management, Facebook/Google/web form integration, Chart.js/ECharts dashboards, HR modules, JWT auth, real-time chat, WebSocket messaging, i18n, 80%+ code coverage, 60% bundle size reduction.",
+      "tech": ["Angular", "TypeScript", "SCSS", "Bootstrap", "Angular Material", "Chart.js", "Firebase", "Ionic Angular", "REST APIs"],
+      "url": "https://redteamcrm.com/"
+    },
+    {
+      "name": "Lakshmi Hyundai – Car Inventory & Test Drive Web Platform",
+      "type": "Angular Web Application",
+      "desc": "Responsive website for Lakshmi Hyundai. Dynamic car display by location, test drive booking, Google Sheets integration, admin panel for dynamic content management.",
+      "tech": ["Angular", "TypeScript", "REST APIs", "Google Sheets integration", "Responsive UI (SCSS/Bootstrap)"],
+      "url": "https://www.lakshmihyundai.co.in/"
+    }
+  ],
+  "strengths": ["Quick Adaptability", "Attention to Detail", "Strong Communication", "Ownership Mindset"]
+};
