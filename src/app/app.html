@@ -661,3 +661,11 @@
     }
   </div>
 </div>
+
+<!-- Custom Trackless Scrollbar -->
+<div 
+  class="custom-scrollbar-container" 
+  [class.visible]="!isLoaderActive() && !isMenuOpen() && !isContactModalOpen()" 
+  aria-hidden="true">
+  <div id="custom-scrollbar-thumb" class="custom-scrollbar-thumb" role="scrollbar" aria-label="Page scroll indicator"></div>
+</div>
