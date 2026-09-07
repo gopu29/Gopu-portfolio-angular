@@ -598,7 +598,8 @@ img { display: block }
 }
 @media (min-width: 1024px) {
   .hero-left {
-    grid-column: span 7;
+    grid-column: span 6;
+    max-width: 28rem;
     justify-content: center;
   }
 }
@@ -615,7 +616,7 @@ img { display: block }
 }
 
 .hero-h1 {
-  max-width: 18ch;
+  max-width: 14ch;
   font-size: 2.25rem;
   font-weight: 600;
   line-height: 0.98;
@@ -623,12 +624,12 @@ img { display: block }
 }
 @media (min-width: 640px) {
   .hero-h1 {
-    font-size: 3rem;
+    font-size: 2.85rem;
   }
 }
 @media (min-width: 768px) {
   .hero-h1 {
-    font-size: 3.75rem;
+    font-size: 3.4rem;
   }
 }
 
