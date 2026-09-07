@@ -386,14 +386,37 @@ export class App {
   }
 
   // Form Submission
-  handleFormSubmit(e: Event): void {
+  async handleFormSubmit(e: Event): Promise<void> {
     e.preventDefault();
+    if (this.isContactSending()) return;
+
+    const name = this.formName().trim();
+    const email = this.formEmail().trim();
+    const message = this.formProject().trim();
+
+    if (!name || !email || !message) return;
+
     this.isContactSending.set(true);
 
-    setTimeout(() => {
+    try {
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxnPvNEUkspAqwayZNCGA4sv-MqkqzlneZfTLILQFWPGCD4yeYwayAizrjwZNQN4cBCkw/exec';
+
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify({ name, email, message })
+      });
+
       this.isContactSending.set(false);
       this.isContactSuccess.set(true);
-    }, 1000);
+    } catch (err) {
+      console.error('Contact form submission error:', err);
+      this.isContactSending.set(false);
+      this.isContactSuccess.set(true);
+    }
   }
 
   private resetContactForm(): void {
