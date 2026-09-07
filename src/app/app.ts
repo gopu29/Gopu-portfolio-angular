@@ -44,6 +44,7 @@ export class App {
   // Lenis smooth scroll instance
   protected lenis: any = null;
   private clockIntervalId: any = null;
+  private updateCustomScrollbarFn: ((scrollPos?: number) => void) | null = null;
 
   constructor() {
     afterNextRender(() => {
@@ -134,6 +135,9 @@ export class App {
         updateStatsCounter();
       });
       this.lenis.on('scroll', updateStatsCounter);
+
+      // 8. Custom Trackless Scrollbar
+      this.initCustomScrollbar();
     });
   }
 
@@ -150,19 +154,154 @@ export class App {
     document.documentElement.style.removeProperty('position');
     document.documentElement.style.removeProperty('overflow');
     document.documentElement.style.removeProperty('height');
+    if (this.updateCustomScrollbarFn) {
+      this.updateCustomScrollbarFn();
+    }
   }
 
   scrollToSection(id: string): void {
     const element = document.getElementById(id);
     if (!element) return;
-    if (this.lenis) this.lenis.stop();
-    setTimeout(() => {
-      const top = element.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-      setTimeout(() => {
-        if (this.lenis) this.lenis.start();
-      }, 100);
-    }, 50);
+    if (this.lenis) {
+      this.lenis.scrollTo(element, { offset: 0, duration: 1.2 });
+      return;
+    }
+    const top = element.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+
+  // Custom Trackless Scrollbar Controller
+  private initCustomScrollbar(): void {
+    const thumb = document.getElementById('custom-scrollbar-thumb');
+    if (!thumb) return;
+
+    let isDragging = false;
+    let startY = 0;
+    let startScroll = 0;
+    let fadeTimeout: any = null;
+
+    const updateScrollbar = (scrollPos?: number) => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+      );
+      const maxScroll = Math.max(0, documentHeight - windowHeight);
+
+      if (maxScroll <= 0) {
+        thumb.style.opacity = '0';
+        thumb.style.pointerEvents = 'none';
+        return;
+      } else {
+        thumb.style.pointerEvents = 'auto';
+      }
+
+      // Height proportional to viewport ratio (clamped between 36px and 70% of viewport)
+      const heightRatio = windowHeight / documentHeight;
+      const thumbHeight = Math.max(36, Math.min(windowHeight * 0.7, windowHeight * heightRatio));
+      const maxThumbY = windowHeight - thumbHeight;
+
+      const currentScroll = typeof scrollPos === 'number'
+        ? scrollPos
+        : (window.pageYOffset || document.documentElement.scrollTop || 0);
+
+      const progress = maxScroll > 0 ? Math.max(0, Math.min(1, currentScroll / maxScroll)) : 0;
+      const thumbY = progress * maxThumbY;
+
+      thumb.style.height = `${thumbHeight}px`;
+      thumb.style.transform = `translate3d(0, ${thumbY}px, 0)`;
+    };
+
+    this.updateCustomScrollbarFn = updateScrollbar;
+
+    const triggerActive = () => {
+      thumb.classList.add('is-active');
+      clearTimeout(fadeTimeout);
+      fadeTimeout = setTimeout(() => {
+        if (!isDragging) {
+          thumb.classList.remove('is-active');
+        }
+      }, 1200);
+    };
+
+    // Synchronize with Lenis scroll
+    if (this.lenis) {
+      this.lenis.on('scroll', (e: any) => {
+        updateScrollbar(e.scroll);
+        triggerActive();
+      });
+    }
+
+    // Fallback/standard scroll listener
+    window.addEventListener('scroll', () => {
+      if (!this.lenis) {
+        updateScrollbar();
+      }
+      triggerActive();
+    }, { passive: true });
+
+    // Handle viewport resize & dynamic DOM size changes
+    window.addEventListener('resize', () => updateScrollbar());
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(() => {
+        updateScrollbar();
+      });
+      resizeObserver.observe(document.body);
+    }
+
+    // Drag interactions for custom scrollbar thumb
+    thumb.addEventListener('pointerdown', (e: PointerEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      isDragging = true;
+      thumb.setPointerCapture(e.pointerId);
+      thumb.classList.add('is-dragging');
+      document.body.classList.add('custom-scrollbar-drag-active');
+      startY = e.clientY;
+      startScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+    });
+
+    thumb.addEventListener('pointermove', (e: PointerEvent) => {
+      if (!isDragging) return;
+      const windowHeight = window.innerHeight;
+      const documentHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+      );
+      const maxScroll = Math.max(0, documentHeight - windowHeight);
+      const thumbHeight = thumb.getBoundingClientRect().height;
+      const maxThumbY = windowHeight - thumbHeight;
+
+      if (maxThumbY <= 0) return;
+
+      const deltaY = e.clientY - startY;
+      const scrollDelta = deltaY * (maxScroll / maxThumbY);
+      const targetScroll = Math.max(0, Math.min(maxScroll, startScroll + scrollDelta));
+
+      if (this.lenis) {
+        this.lenis.scrollTo(targetScroll, { immediate: true });
+      } else {
+        window.scrollTo(0, targetScroll);
+      }
+      updateScrollbar(targetScroll);
+    });
+
+    const endDrag = (e: PointerEvent) => {
+      if (!isDragging) return;
+      isDragging = false;
+      try {
+        thumb.releasePointerCapture(e.pointerId);
+      } catch {}
+      thumb.classList.remove('is-dragging');
+      document.body.classList.remove('custom-scrollbar-drag-active');
+      triggerActive();
+    };
+
+    thumb.addEventListener('pointerup', endDrag);
+    thumb.addEventListener('pointercancel', endDrag);
+
+    // Initial position
+    updateScrollbar();
   }
 
   // Clock Update
