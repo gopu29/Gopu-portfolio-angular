@@ -1,4 +1,5 @@
 import { Component, signal, computed, afterNextRender } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RESUME_DATA } from './resume-data';
@@ -6,7 +7,7 @@ import Lenis from 'lenis';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -31,10 +32,13 @@ export class App {
   timeStr = signal('9:41am');
   dateStr = signal('12 March, 2025');
 
-  // Form inputs
-  formName = signal('');
-  formEmail = signal('');
-  formProject = signal('');
+  // Contact Form (Reactive)
+  formSubmitted = signal(false);
+  contactForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(2)] }),
+    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    message: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(10)] })
+  });
 
   // Carousel States
   previousCarouselIndex = signal<number | null>(null);
@@ -385,16 +389,43 @@ export class App {
     this.currentCarouselIndex.set(index);
   }
 
+  // Form Validation Helpers
+  isFieldInvalid(fieldName: 'name' | 'email' | 'message'): boolean {
+    const ctrl = this.contactForm.get(fieldName);
+    return !!(ctrl && ctrl.invalid && (ctrl.touched || ctrl.dirty || this.formSubmitted()));
+  }
+
+  getFieldError(fieldName: 'name' | 'email' | 'message'): string {
+    const ctrl = this.contactForm.get(fieldName);
+    if (!ctrl || !ctrl.errors) return '';
+    if (ctrl.errors['required']) {
+      if (fieldName === 'name') return 'Please enter your name';
+      if (fieldName === 'email') return 'Please enter your email';
+      if (fieldName === 'message') return 'Please enter your message';
+    }
+    if (ctrl.errors['minlength']) {
+      const min = ctrl.errors['minlength'].requiredLength;
+      return `Must be at least ${min} characters`;
+    }
+    if (ctrl.errors['email']) {
+      return 'Please enter a valid email address';
+    }
+    return 'Invalid input';
+  }
+
   // Form Submission
   async handleFormSubmit(e: Event): Promise<void> {
     e.preventDefault();
+    this.formSubmitted.set(true);
+    this.contactForm.markAllAsTouched();
+
+    if (this.contactForm.invalid) {
+      return;
+    }
+
     if (this.isContactSending()) return;
 
-    const name = this.formName().trim();
-    const email = this.formEmail().trim();
-    const message = this.formProject().trim();
-
-    if (!name || !email || !message) return;
+    const { name, email, message } = this.contactForm.getRawValue();
 
     this.isContactSending.set(true);
 
@@ -412,17 +443,20 @@ export class App {
 
       this.isContactSending.set(false);
       this.isContactSuccess.set(true);
+      this.contactForm.reset();
+      this.formSubmitted.set(false);
     } catch (err) {
       console.error('Contact form submission error:', err);
       this.isContactSending.set(false);
       this.isContactSuccess.set(true);
+      this.contactForm.reset();
+      this.formSubmitted.set(false);
     }
   }
 
   private resetContactForm(): void {
-    this.formName.set('');
-    this.formEmail.set('');
-    this.formProject.set('');
+    this.contactForm.reset();
+    this.formSubmitted.set(false);
     this.isContactSuccess.set(false);
     this.isContactSending.set(false);
   }
