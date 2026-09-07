@@ -2,6 +2,35 @@
 * { box-sizing: border-box; margin: 0; padding: 0 }
 html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: auto; }
 body { background: #ffffff; color: #111111; font-family: 'Onest', sans-serif; overflow-x: hidden }
+
+/* Hide native scrollbars across all browsers */
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Edge, Opera */
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* Lenis recommended base styling */
+html.lenis, html.lenis-smooth {
+  height: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
 a { color: inherit; text-decoration: none }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer }
 ul { list-style: none }
