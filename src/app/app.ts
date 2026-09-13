@@ -56,7 +56,7 @@ export class App {
     afterNextRender(() => {
       // 1. Page Loader Count & Page Reveal Animation
       this.stopScroll();
-      const FILL_MS = 1600;
+      const FILL_MS = 1400;
       const startTime = performance.now();
       
       const animateLoader = (timestamp: number) => {
@@ -70,24 +70,28 @@ export class App {
         if (t < 1) {
           requestAnimationFrame(animateLoader);
         } else {
-          // Switch to Hero Section Preview Phase
+          // Switch to Hero Section Preview Phase (hero displays as small framed card)
           this.preloaderPhase.set('preview');
           
           setTimeout(() => {
-            // Trigger the staggered shutter reveal
+            // Trigger the Zoom-In Reveal (hero zooms from small scale to 100% full screen)
             this.preloaderPhase.set('revealing');
+            
+            // Trigger typography and card entrances midway through the zoom expansion
+            setTimeout(() => {
+              document.body.classList.add('is-ready');
+            }, 350);
             
             setTimeout(() => {
               // Complete reveal & clean up preloader
               this.preloaderPhase.set('done');
               this.isLoaderActive.set(false);
               this.startScroll();
-              document.body.classList.add('is-ready');
               
               // Trigger IntersectionObservers
               this.triggerScrollElements();
-            }, 850);
-          }, 950);
+            }, 1400);
+          }, 750);
         }
       };
       requestAnimationFrame(animateLoader);

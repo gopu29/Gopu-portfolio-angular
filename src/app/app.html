@@ -6,6 +6,13 @@
     [heroTitle]="resume().name"
     [heroSubtitle]="'Full Stack Developer | Angular & Ionic Specialist'">
   </app-layout-preloader>
+
+  <div 
+    class="hero-theater-backdrop" 
+    [class.backdrop-hidden]="preloaderPhase() === 'revealing' || preloaderPhase() === 'done'"
+    aria-hidden="true">
+    <div class="noise-overlay" aria-hidden="true"></div>
+  </div>
 }
 
 <app-header 
@@ -17,8 +24,12 @@
 </app-header>
 
 <main id="main">
-  <!-- Hero Section -->
-  <section id="home" class="hero">
+  <!-- Hero Section with Live Zoom-In Reveal -->
+  <section 
+    id="home" 
+    class="hero"
+    [class.hero-preview]="preloaderPhase() === 'preview'"
+    [class.hero-revealing]="preloaderPhase() === 'revealing'">
     <!-- Full-bleed before/after liquid reveal -->
     <div class="hero-liquid-container" id="hero-liquid-container">
       <img class="hero-img-before" src="after2.jpg" alt="Govinda P B Portfolio Hero Base" />
