@@ -2,12 +2,13 @@ import { Component, signal, computed, afterNextRender } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { MorphLoadingComponent } from './components/ui/morph-loading/morph-loading.component';
 import { RESUME_DATA } from './resume-data';
 import Lenis from 'lenis';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule],
+  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule, MorphLoadingComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -54,7 +55,7 @@ export class App {
     afterNextRender(() => {
       // 1. Page Loader Count & Slide Up Animation
       this.stopScroll();
-      const FILL_MS = 1300;
+      const FILL_MS = 1800;
       const startTime = performance.now();
       
       const animateLoader = (timestamp: number) => {

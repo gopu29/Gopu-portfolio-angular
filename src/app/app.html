@@ -1,11 +1,11 @@
 <!-- PageLoader (loader / reveal) -->
 @if (isLoaderActive()) {
   <div id="loader" class="page-loader" [style.transform]="loaderTransform()">
+    <div class="loader-visual">
+      <app-morph-loading variant="morph" size="lg"></app-morph-loading>
+    </div>
     <div class="loader-content">
       <div class="loader-brand">
-        <svg class="icon icon-fill text-accent-from" viewBox="0 0 48 48">
-          <path d="M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z"/>
-        </svg>
         <span>{{ resume().name }}</span>
       </div>
       <p class="loader-tagline">Full Stack Developer | Angular & Ionic Developer</p>
@@ -15,7 +15,7 @@
         <div id="loader-fill" class="loader-fill" [style.width.%]="loaderProgress()"></div>
       </div>
       <div class="loader-meta">
-        <span>Loading</span>
+        <span>Loading Experience</span>
         <span id="loader-counter" class="loader-counter">{{ loaderProgressString() }}</span>
       </div>
     </div>
