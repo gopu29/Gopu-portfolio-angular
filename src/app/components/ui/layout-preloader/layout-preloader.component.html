@@ -1,0 +1,73 @@
+<div class="layout-preloader-root" [class.phase-revealing]="phase() === 'revealing'">
+  <!-- Staggered vertical shutter columns -->
+  <div class="shutter-grid" aria-hidden="true">
+    @for (col of columns; track col) {
+      <div 
+        class="shutter-column"
+        [class.shutter-open]="phase() === 'revealing'"
+        [style.transitionDelay]="(col * 75) + 'ms'">
+      </div>
+    }
+  </div>
+
+  <!-- Noise Grain Texture Overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Phase 1: Morph Loading Sequence -->
+  @if (phase() === 'loading') {
+    <div class="preloader-loading-view">
+      <div class="loader-visual">
+        <app-morph-loading variant="morph" size="lg"></app-morph-loading>
+      </div>
+      <div class="loader-content">
+        <div class="loader-brand">
+          <span>{{ heroTitle() }}</span>
+        </div>
+        <p class="loader-tagline">{{ heroSubtitle() }}</p>
+      </div>
+      <div class="loader-progress-block">
+        <div class="loader-track">
+          <div class="loader-fill" [style.width.%]="progress()"></div>
+        </div>
+        <div class="loader-meta">
+          <span>Loading Experience</span>
+          <span class="loader-counter">{{ progressString() }}</span>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Phase 2 & 3: Hero Section Preview Reveal -->
+  @if (phase() === 'preview' || phase() === 'revealing') {
+    <div class="hero-preview-wrapper">
+      <div 
+        class="hero-preview-frame" 
+        [class.preview-revealing]="phase() === 'revealing'">
+        
+        <div class="hero-preview-media">
+          <img [src]="heroImage()" alt="Govinda Portfolio Hero Preview" class="hero-preview-img" />
+          <div class="hero-preview-vignette"></div>
+        </div>
+
+        <div class="hero-preview-header">
+          <div class="preview-badge">
+            <span class="status-dot"></span>
+            <span>Hero Section Preview</span>
+          </div>
+          <div class="preview-tag">
+            <span>Portfolio // 2025</span>
+          </div>
+        </div>
+
+        <div class="hero-preview-footer">
+          <div class="preview-eyebrow">
+            <span class="eyebrow-pip"></span>
+            <span>Angular & Ionic Specialist</span>
+          </div>
+          <h2 class="preview-name">{{ heroTitle() }}</h2>
+          <p class="preview-tagline">Fast web & mobile apps, built to scale.</p>
+        </div>
+      </div>
+    </div>
+  }
+</div>
