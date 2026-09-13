@@ -4,6 +4,20 @@
     "angular-cli": {
       "command": "npx",
       "args": ["-y", "@angular/cli", "mcp"]
+    },
+    "21st": {
+      "url": "https://21st.dev/api/mcp",
+      "headers": {
+        "x-api-key": "21st_sk_a3f0084b47873f8e212af4e8183597932dce4566838942e0ae0e97aae2253f6e"
+      }
+    }
+  },
+  "mcpServers": {
+    "21st": {
+      "url": "https://21st.dev/api/mcp",
+      "headers": {
+        "x-api-key": "21st_sk_a3f0084b47873f8e212af4e8183597932dce4566838942e0ae0e97aae2253f6e"
+      }
     }
   }
 }
