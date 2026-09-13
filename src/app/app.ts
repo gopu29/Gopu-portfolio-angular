@@ -2,13 +2,13 @@ import { Component, signal, computed, afterNextRender } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { MorphLoadingComponent } from './components/ui/morph-loading/morph-loading.component';
+import { LayoutPreloaderComponent } from './components/ui/layout-preloader/layout-preloader.component';
 import { RESUME_DATA } from './resume-data';
 import Lenis from 'lenis';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule, MorphLoadingComponent],
+  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule, LayoutPreloaderComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -23,8 +23,9 @@ export class App {
   isContactSuccess = signal(false);
   isContactSending = signal(false);
 
-  // Loader States
+  // Loader & Page Reveal States
   isLoaderActive = signal(true);
+  preloaderPhase = signal<'loading' | 'preview' | 'revealing' | 'done'>('loading');
   loaderTransform = signal('translateY(0)');
   loaderProgress = signal(0);
   loaderProgressString = computed(() => String(this.loaderProgress()).padStart(3, '0'));
@@ -53,9 +54,9 @@ export class App {
 
   constructor() {
     afterNextRender(() => {
-      // 1. Page Loader Count & Slide Up Animation
+      // 1. Page Loader Count & Page Reveal Animation
       this.stopScroll();
-      const FILL_MS = 1800;
+      const FILL_MS = 1600;
       const startTime = performance.now();
       
       const animateLoader = (timestamp: number) => {
@@ -69,17 +70,24 @@ export class App {
         if (t < 1) {
           requestAnimationFrame(animateLoader);
         } else {
-          // Slide up
-          this.loaderTransform.set('translateY(-100%)');
+          // Switch to Hero Section Preview Phase
+          this.preloaderPhase.set('preview');
           
           setTimeout(() => {
-            this.isLoaderActive.set(false);
-            this.startScroll();
-            document.body.classList.add('is-ready');
+            // Trigger the staggered shutter reveal
+            this.preloaderPhase.set('revealing');
             
-            // Trigger IntersectionObservers
-            this.triggerScrollElements();
-          }, 700);
+            setTimeout(() => {
+              // Complete reveal & clean up preloader
+              this.preloaderPhase.set('done');
+              this.isLoaderActive.set(false);
+              this.startScroll();
+              document.body.classList.add('is-ready');
+              
+              // Trigger IntersectionObservers
+              this.triggerScrollElements();
+            }, 850);
+          }, 950);
         }
       };
       requestAnimationFrame(animateLoader);

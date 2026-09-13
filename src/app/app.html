@@ -1,25 +1,11 @@
-<!-- PageLoader (loader / reveal) -->
+<!-- Layout Preloader (Morph Loading + Hero Screen Reveal) -->
 @if (isLoaderActive()) {
-  <div id="loader" class="page-loader" [style.transform]="loaderTransform()">
-    <div class="loader-visual">
-      <app-morph-loading variant="morph" size="lg"></app-morph-loading>
-    </div>
-    <div class="loader-content">
-      <div class="loader-brand">
-        <span>{{ resume().name }}</span>
-      </div>
-      <p class="loader-tagline">Full Stack Developer | Angular & Ionic Developer</p>
-    </div>
-    <div class="loader-progress-block">
-      <div class="loader-track">
-        <div id="loader-fill" class="loader-fill" [style.width.%]="loaderProgress()"></div>
-      </div>
-      <div class="loader-meta">
-        <span>Loading Experience</span>
-        <span id="loader-counter" class="loader-counter">{{ loaderProgressString() }}</span>
-      </div>
-    </div>
-  </div>
+  <app-layout-preloader
+    [progress]="loaderProgress()"
+    [phase]="preloaderPhase()"
+    [heroTitle]="resume().name"
+    [heroSubtitle]="'Full Stack Developer | Angular & Ionic Specialist'">
+  </app-layout-preloader>
 }
 
 <app-header 
